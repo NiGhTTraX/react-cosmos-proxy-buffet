@@ -1,0 +1,2 @@
+--file tests/jsdom-setup.ts
+tests/**/*.spec.{ts,tsx}

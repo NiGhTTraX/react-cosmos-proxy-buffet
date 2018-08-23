@@ -1,0 +1,83 @@
+{
+  "name": "react-cosmos-proxy-buffet",
+  "version": "0.0.1",
+  "description": "Extensions bar plugin for React Cosmos",
+  "keywords": [
+    "react",
+    "cosmos",
+    "react-cosmos",
+    "proxy",
+    "plugin",
+    "extension"
+  ],
+  "main": "dist/src/index",
+  "types": "dist/src/index",
+  "scripts": {
+    "playground": "cosmos --config playground/cosmos.config.js",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc --declaration --outDir ./dist",
+    "prepublishOnly": "npm run build",
+    "lint": "eslint --ext ts,tsx .",
+    "test": "TS_NODE_CACHE=0 mocha --opts tests/mocha.opts",
+    "test:coverage": "NODE_ENV=coverage nyc mocha --opts tests/mocha.coverage.opts",
+    "report-coverage": "nyc report --reporter=json && codecov -f tests/results/coverage/coverage-final.json",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.tsx?": "eslint"
+  },
+  "author": "Andrei Picus",
+  "license": "MIT",
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^16",
+    "react-cosmos": "^4"
+  },
+  "devDependencies": {
+    "@babel/core": "~7.0.0-beta.54",
+    "@babel/plugin-proposal-class-properties": "~7.0.0-rc.2",
+    "@babel/preset-env": "~7.0.0-beta.54",
+    "@babel/preset-react": "~7.0.0-beta.54",
+    "@babel/preset-typescript": "~7.0.0-beta.54",
+    "@babel/register": "~7.0.0-beta.54",
+    "@nighttrax/eslint-config": "~1.0.1",
+    "@types/chai": "~4.1.4",
+    "@types/jquery": "~3.3.4",
+    "@types/jsdom": "11.0.4",
+    "@types/mocha": "~5.2.0",
+    "@types/node": "~10.1.2",
+    "@types/react": "~16.4.6",
+    "@types/react-dom": "~16.0.6",
+    "@types/sinon": "~5.0.1",
+    "babel-core": "~6.26.3",
+    "babel-loader": "~7.1.5",
+    "babel-plugin-istanbul": "~4.1.6",
+    "chai": "~4.1.2",
+    "codecov": "~3.0.2",
+    "eslint": "~4.19.1",
+    "eslint-import-resolver-babel-module": "~4.0.0",
+    "eslint-plugin-import": "~2.11.0",
+    "eslint-plugin-jsx-a11y": "~6.1.1",
+    "eslint-plugin-react": "~7.7.0",
+    "eslint-plugin-typescript": "~0.12.0",
+    "html-webpack-plugin": "~3.2.0",
+    "husky": "~0.14.3",
+    "jquery": "~3.3.1",
+    "jsdom": "~12.0.0",
+    "lint-staged": "~7.1.1",
+    "mocha": "~5.2.0",
+    "nyc": "~11.8.0",
+    "react": "~16.4.1",
+    "react-cosmos": "~4.6.4",
+    "react-dom": "~16.4.2",
+    "ts-loader": "~4.5.0",
+    "ts-node": "~7.0.1",
+    "typescript": "~3.0.1",
+    "typescript-eslint-parser": "~18.0.0",
+    "webpack": "~4.17.1"
+  },
+  "files": [
+    "dist/src/**/*"
+  ]
+}
