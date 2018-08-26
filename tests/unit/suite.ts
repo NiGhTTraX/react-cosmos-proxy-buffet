@@ -1,12 +1,15 @@
 import $ from 'jquery';
 import ReactDOM from 'react-dom';
 import { ReactElement } from 'react';
+import { expect } from 'chai';
 import {
   runnerAfterEach,
   runnerBeforeEach,
   runnerDescribe,
   runnerIt
 } from '../mocha-runner';
+
+export { expect };
 
 let componentContainer: HTMLDivElement;
 

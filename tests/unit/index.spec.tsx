@@ -1,9 +1,8 @@
 import { createReactStub } from 'react-mock-component';
 import * as React from 'react';
 import { stub } from 'sinon';
-import { expect } from 'chai';
-import { $render, describe, it } from './suite';
-import createProxyBar, { ProxyProps } from '../../src/index';
+import { $render, describe, it, expect } from './suite';
+import createProxyBuffet, { ProxyBarProps, ProxyProps } from '../../src/index';
 
 describe('ProxyBar', () => {
   it('it should render the next proxy', () => {
@@ -13,6 +12,9 @@ describe('ProxyBar', () => {
       next: () => null
     };
     const next = stub().returns(nextProxy);
+
+    const ProxyBar = createReactStub<ProxyBarProps>();
+    ProxyBar.withProps({}).renders(<span>proxy bar</span>);
 
     const props: ProxyProps = {
       nextProxy: {
@@ -35,9 +37,10 @@ describe('ProxyBar', () => {
       })
       .renders(<span>next proxy</span>);
 
-    const ProxyBar = createProxyBar();
-    const $proxyBar = $render(<ProxyBar {...props} />);
+    const ProxyBuffet = createProxyBuffet({ ProxyBar });
+    const $proxyBar = $render(<ProxyBuffet {...props} />);
 
     expect($proxyBar.text()).to.contain('next proxy');
+    expect($proxyBar.text()).to.contain('proxy bar');
   });
 });
