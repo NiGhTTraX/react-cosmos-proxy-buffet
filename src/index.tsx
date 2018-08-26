@@ -1,7 +1,20 @@
-import React from 'react';
+/* eslint-disable no-use-before-define,space-infix-ops */
+import React, { ComponentType } from 'react';
+
+export type ProxyProps = {
+  nextProxy: {
+    value: ComponentType<ProxyProps>,
+    next: Function
+  },
+  fixture: {
+    component: ComponentType
+  },
+  onComponentRef: Function,
+  onFixtureUpdate: Function
+};
 
 export default () =>
-  (props: any) => {
+  (props: ProxyProps) => {
     const { nextProxy, ...rest } = props;
     const { value: NextProxy, next } = nextProxy;
 

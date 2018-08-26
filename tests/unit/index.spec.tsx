@@ -3,31 +3,41 @@ import * as React from 'react';
 import { stub } from 'sinon';
 import { expect } from 'chai';
 import { $render, describe, it } from './suite';
-import createProxyBar from '../../src/index';
+import createProxyBar, { ProxyProps } from '../../src/index';
 
 describe('ProxyBar', () => {
   it('it should render the next proxy', () => {
-    const NextProxy = createReactStub();
-    const NextNextProxy = createReactStub();
-    const Component = createReactStub();
-    const next = stub().returns(NextNextProxy);
-    const props = {
+    const NextProxy = createReactStub<ProxyProps>();
+    const nextProxy = {
+      value: () => null,
+      next: () => null
+    };
+    const next = stub().returns(nextProxy);
+
+    const props: ProxyProps = {
       nextProxy: {
         value: NextProxy,
         next
       },
       fixture: {
-        component: Component
+        component: () => null
       },
       onFixtureUpdate: () => {},
       onComponentRef: () => {}
     };
+
     NextProxy
-      .withProps({ ...props, nextProxy: NextNextProxy })
+      .withProps({
+        fixture: props.fixture,
+        onFixtureUpdate: props.onFixtureUpdate,
+        onComponentRef: props.onComponentRef,
+        nextProxy
+      })
       .renders(<span>next proxy</span>);
 
     const ProxyBar = createProxyBar();
     const $proxyBar = $render(<ProxyBar {...props} />);
+
     expect($proxyBar.text()).to.contain('next proxy');
   });
 });
