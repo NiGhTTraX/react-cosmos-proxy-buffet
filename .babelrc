@@ -2,10 +2,10 @@
   "presets": [
     "@babel/typescript",
     "@babel/react",
-    ["@babel/env", { "target": { "node": "current" } }]
+    ["@babel/env", { "targets": { "node": "current" } }]
   ],
   "plugins": [
-    "@babel/proposal-class-properties"
+    "@babel/plugin-proposal-class-properties"
   ],
   "env": {
     "coverage": {

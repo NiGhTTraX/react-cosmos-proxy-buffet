@@ -6,7 +6,7 @@ module.exports = {
 
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'build')
+    path: path.join(__dirname, 'dist')
   },
 
   mode: 'development',
@@ -16,7 +16,7 @@ module.exports = {
     rules: [{
       test: /\.tsx?$/,
       exclude: /node_modules/,
-      use: 'ts-loader'
+      use: 'babel-loader'
     }]
   },
 
