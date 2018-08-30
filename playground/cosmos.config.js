@@ -1,7 +1,7 @@
 module.exports = {
   rootPath: '../',
 
-  fileMatch: ['**/fixtures/**/*.ts'],
+  fileMatch: ['**/fixtures/**/*.{ts,tsx}'],
   watchDirs: ['src', 'playground'],
 
   proxiesPath: 'playground/cosmos.proxies.js',

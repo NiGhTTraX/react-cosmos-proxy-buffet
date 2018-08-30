@@ -75,7 +75,7 @@
     "react": "~16.4.1",
     "react-cosmos": "~4.6.4",
     "react-dom": "~16.4.2",
-    "react-mock-component": "~0.3.0",
+    "react-mock-component": "~0.4.1",
     "sinon": "~6.1.5",
     "style-loader": "~0.22.1",
     "ts-node": "~7.0.1",

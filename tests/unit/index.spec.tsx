@@ -1,8 +1,9 @@
 import { createReactStub } from 'react-mock-component';
 import * as React from 'react';
 import { stub } from 'sinon';
+import { ProxyBarProps } from '../../src/proxy-bar';
 import { $render, describe, it, expect } from './suite';
-import createProxyBuffet, { ProxyBarProps, ProxyProps } from '../../src/index';
+import createProxyBuffet, { ProxyProps } from '../../src/index';
 
 describe('ProxyBar', () => {
   it('it should render the next proxy', () => {

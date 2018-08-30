@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define,space-infix-ops */
 import React, { ComponentType } from 'react';
-import DefaultProxyBar from './proxy-bar';
+import DefaultProxyBar, { ProxyBarProps } from './proxy-bar';
 
 export type ProxyProps = {
   nextProxy: {
@@ -14,9 +14,6 @@ export type ProxyProps = {
   onFixtureUpdate: Function
 };
 
-export interface ProxyBarProps {
-}
-
 export default function createProxyBuffet({
   ProxyBar = DefaultProxyBar
 }: {
@@ -27,7 +24,7 @@ ProxyBar?: ComponentType<ProxyBarProps>
     const { value: NextProxy, next } = nextProxy;
 
     return <div className="proxy">
-      <ProxyBar />
+      <ProxyBar proxies={[]} />
       <NextProxy {...rest} nextProxy={next()} />
     </div>;
   };
