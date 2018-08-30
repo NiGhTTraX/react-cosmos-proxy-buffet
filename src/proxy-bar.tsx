@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './proxy-bar.less';
 
 export default class ProxyBar extends Component {
   render() {
