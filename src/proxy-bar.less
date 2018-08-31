@@ -1,8 +1,25 @@
+@import '~reset.css';
+
 .proxy-bar {
   position: fixed;
 
   &.bottom-right {
     bottom: 0;
     right: 0;
+  }
+
+  background: #0c293d;
+
+  li {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > * {
+      width: 25px;
+      height: 25px;
+    }
   }
 }

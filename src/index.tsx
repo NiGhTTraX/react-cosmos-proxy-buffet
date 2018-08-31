@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define,space-infix-ops */
 import React, { ComponentType } from 'react';
+import 'reset.css';
 import DefaultProxyBar, { ProxyBarProps } from './proxy-bar';
 
 export type ProxyProps = {
