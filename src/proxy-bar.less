@@ -2,6 +2,8 @@
 
 .proxy-bar {
   position: fixed;
+  display: flex;
+  height: 40px;
 
   &.bottom-right {
     bottom: 0;
@@ -9,6 +11,26 @@
   }
 
   background: #0c293d;
+
+  .toggle {
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  ul {
+    display: none;
+  }
+
+  &.expanded {
+    ul {
+      display: block;
+    }
+  }
 
   li {
     width: 40px;

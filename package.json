@@ -30,7 +30,8 @@
   "author": "Andrei Picus",
   "license": "MIT",
   "dependencies": {
-    "reset.css": "~2.0.2"
+    "reset.css": "~2.0.2",
+    "classnames": "latest"
   },
   "peerDependencies": {
     "react": "^16",
@@ -45,6 +46,7 @@
     "@babel/register": "~7.0.0-beta.54",
     "@nighttrax/eslint-config": "~1.0.1",
     "@types/chai": "~4.1.4",
+    "@types/classnames": "~2.2.6",
     "@types/jquery": "~3.3.4",
     "@types/jsdom": "11.0.4",
     "@types/mocha": "~5.2.0",
