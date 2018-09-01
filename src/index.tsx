@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define,space-infix-ops */
 import React, { ComponentType } from 'react';
 import 'reset.css';
-import DefaultProxyBar, { Proxy, ProxyBarProps } from './proxy-bar';
+import DefaultProxyBar, { IStorage, Proxy, ProxyBarProps } from './proxy-bar';
 
 export type ProxyProps = {
   nextProxy: {
@@ -13,6 +13,15 @@ export type ProxyProps = {
   },
   onComponentRef: Function,
   onFixtureUpdate: Function
+};
+
+const blackHoleStorage: IStorage = {
+  get() {
+    return null;
+  },
+
+  set(): void {
+  }
 };
 
 export default function createProxyBuffet({
@@ -27,7 +36,7 @@ proxies?: Proxy[]
     const { value: NextProxy, next } = nextProxy;
 
     return <div className="proxy">
-      <ProxyBar proxies={proxies} />
+      <ProxyBar proxies={proxies} storage={blackHoleStorage} />
       <NextProxy {...rest} nextProxy={next()} />
     </div>;
   };

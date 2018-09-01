@@ -11,8 +11,14 @@ export interface Proxy {
   Icon: ComponentType<ProxyIconProps>
 }
 
+export interface IStorage {
+  get(key: string): any;
+  set(key: string, value: any): void;
+}
+
 export interface ProxyBarProps {
-  proxies: Proxy[]
+  proxies: Proxy[],
+  storage: IStorage
 }
 
 interface ProxyBarState {
@@ -20,12 +26,19 @@ interface ProxyBarState {
 }
 
 export default class ProxyBar extends Component<ProxyBarProps, ProxyBarState> {
-  state = {
-    collapsed: false
-  };
+  private STORAGE_COLLAPSED_KEY = 'proxy_bar_collapsed';
+
+  constructor(props: Readonly<ProxyBarProps>) {
+    super(props);
+
+    this.state = {
+      collapsed: this.props.storage.get(this.STORAGE_COLLAPSED_KEY)
+    };
+  }
 
   render() {
     const { proxies } = this.props;
+
     const classes = classNames('proxy-bar bottom-right', {
       expanded: !this.state.collapsed
     });
@@ -53,6 +66,11 @@ export default class ProxyBar extends Component<ProxyBarProps, ProxyBarState> {
   private onToggle = () => {
     this.setState({
       collapsed: !this.state.collapsed
+    }, () => {
+      this.props.storage.set(
+        this.STORAGE_COLLAPSED_KEY,
+        this.state.collapsed
+      );
     });
   };
 }
