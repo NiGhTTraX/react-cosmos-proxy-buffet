@@ -30,8 +30,9 @@
   "author": "Andrei Picus",
   "license": "MIT",
   "dependencies": {
+    "classnames": "latest",
     "reset.css": "~2.0.2",
-    "classnames": "latest"
+    "store": "~2.0.12"
   },
   "peerDependencies": {
     "react": "^16",
@@ -54,6 +55,7 @@
     "@types/react": "~16.4.6",
     "@types/react-dom": "~16.0.6",
     "@types/sinon": "~5.0.1",
+    "@types/store": "~2.0.0",
     "babel-loader": "~8.0.0-beta.6",
     "babel-plugin-istanbul": "~4.1.6",
     "babel-plugin-module-resolver": "~3.1.1",
