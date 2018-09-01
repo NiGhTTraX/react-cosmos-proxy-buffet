@@ -8,7 +8,8 @@ const blackHoleStorage: IStorage = {
 
 const props: ProxyBarProps = {
   proxies: [DocsProxy],
-  storage: blackHoleStorage
+  storage: blackHoleStorage,
+  onToggleProxy: () => {}
 };
 
 export default {

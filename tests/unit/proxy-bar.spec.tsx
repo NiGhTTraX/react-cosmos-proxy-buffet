@@ -3,28 +3,42 @@ import { Simulate } from 'react-dom/test-utils';
 import { createReactStub } from 'react-mock-component';
 import { IMock, Mock } from 'typemoq';
 import { describe, it, $render, expect, beforeEach } from './suite';
-import ProxyBar, { IStorage, Proxy, ProxyIconProps } from '../../src/proxy-bar';
+import ProxyBar, {
+  IStorage,
+  OnToggleProxy,
+  Proxy,
+  ProxyIconProps,
+  ProxyProps2
+} from '../../src/proxy-bar';
 
 describe('ProxyBar', () => {
   let $proxyBar: JQuery;
 
+  const P1 = createReactStub<ProxyProps2>();
   const Proxy1: Proxy = {
-    name: 'proxy 1',
+    id: 'proxy 1',
     Icon: createReactStub<ProxyIconProps>()
       .withProps({})
-      .renders(<span>icon 1</span>)
+      .renders(<span>icon 1</span>),
+    Proxy: P1
   };
 
+  const P2 = createReactStub<ProxyProps2>();
   const Proxy2: Proxy = {
-    name: 'proxy 2',
+    id: 'proxy 2',
     Icon: createReactStub<ProxyIconProps>()
       .withProps({})
-      .renders(<span>icon 2</span>)
+      .renders(<span>icon 2</span>),
+    Proxy: P2
   };
 
   const proxies: Proxy[] = [Proxy1, Proxy2];
 
-  let storage: IMock<IStorage>;
+  let storage: IMock<IStorage>, onToggleProxy: IMock<OnToggleProxy>;
+
+  beforeEach(() => {
+    onToggleProxy = Mock.ofType<OnToggleProxy>();
+  });
 
   describe('collapsing', () => {
     beforeEach(() => {
@@ -40,6 +54,7 @@ describe('ProxyBar', () => {
       $proxyBar = $render(<ProxyBar
         proxies={proxies}
         storage={storage.object}
+        onToggleProxy={onToggleProxy.object}
       />);
 
       expect($proxyBar.hasClass('expanded')).to.be.true;
@@ -56,6 +71,7 @@ describe('ProxyBar', () => {
       $proxyBar = $render(<ProxyBar
         proxies={proxies}
         storage={storage.object}
+        onToggleProxy={onToggleProxy.object}
       />);
 
       expect($proxyBar.hasClass('expanded')).to.be.false;
@@ -71,6 +87,7 @@ describe('ProxyBar', () => {
       $proxyBar = $render(<ProxyBar
         proxies={proxies}
         storage={storage.object}
+        onToggleProxy={onToggleProxy.object}
       />);
 
       Simulate.click($proxyBar.find('.toggle')[0]);
@@ -79,6 +96,7 @@ describe('ProxyBar', () => {
     });
   });
 
+  // TODO: find a better name for this suite
   describe('the rest', () => {
     beforeEach(() => {
       storage = Mock.ofType<IStorage>();
@@ -86,6 +104,7 @@ describe('ProxyBar', () => {
       $proxyBar = $render(<ProxyBar
         proxies={proxies}
         storage={storage.object}
+        onToggleProxy={onToggleProxy.object}
       />);
     });
 
@@ -97,6 +116,26 @@ describe('ProxyBar', () => {
       expect($proxyBar.text())
         .to.contain('icon 1')
         .and.to.contain('icon 2');
+    });
+
+    it('should call when selecting the first proxy', () => {
+      onToggleProxy
+        .setup(cb => cb('proxy 1'))
+        .verifiable();
+
+      Simulate.click($proxyBar.find('.proxy:first')[0]);
+
+      onToggleProxy.verifyAll();
+    });
+
+    it('should call when selecting the last proxy', () => {
+      onToggleProxy
+        .setup(cb => cb('proxy 2'))
+        .verifiable();
+
+      Simulate.click($proxyBar.find('.proxy:last')[0]);
+
+      onToggleProxy.verifyAll();
     });
   });
 });

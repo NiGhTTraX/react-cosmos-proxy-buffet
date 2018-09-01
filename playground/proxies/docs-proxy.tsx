@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Proxy } from '../../src/proxy-bar';
+import { Proxy, ProxyProps2 } from '../../src/proxy-bar';
 
-export default {
-  name: 'docs proxy',
+const proxy: Proxy = {
+  id: 'docs proxy',
   Icon: () => <span>
     <svg viewBox="0 0 1792 1792">
       <path
@@ -10,5 +10,11 @@ export default {
         fill="#fff"
       />
     </svg>
-  </span>
-} as Proxy;
+  </span>,
+  Proxy: (props: ProxyProps2) => <div>
+    proxy goes here
+    {props.children}
+  </div>
+};
+
+export default proxy;

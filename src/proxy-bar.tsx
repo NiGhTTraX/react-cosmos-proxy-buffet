@@ -1,14 +1,20 @@
-import React, { Component, ComponentType } from 'react';
+import React, { Component, ComponentType, ReactElement } from 'react';
 import classNames from 'classnames';
 import './proxy-bar.less';
 
 export interface ProxyIconProps {
 }
 
+export interface ProxyProps2 {
+  component: ComponentType,
+  props: Object,
+  children: ReactElement<any>
+}
+
 export interface Proxy {
-  // eslint-disable-next-line no-restricted-globals
-  name: string;
-  Icon: ComponentType<ProxyIconProps>
+  id: string;
+  Icon: ComponentType<ProxyIconProps>,
+  Proxy: ComponentType<ProxyProps2>
 }
 
 export interface IStorage {
@@ -16,9 +22,12 @@ export interface IStorage {
   set(key: string, value: any): void;
 }
 
+export type OnToggleProxy = (id: string) => void;
+
 export interface ProxyBarProps {
   proxies: Proxy[],
-  storage: IStorage
+  storage: IStorage,
+  onToggleProxy: OnToggleProxy;
 }
 
 interface ProxyBarState {
@@ -27,7 +36,6 @@ interface ProxyBarState {
 
 export default class ProxyBar extends Component<ProxyBarProps, ProxyBarState> {
   private STORAGE_COLLAPSED_KEY = 'proxy_bar_collapsed';
-
   constructor(props: Readonly<ProxyBarProps>) {
     super(props);
 
@@ -56,8 +64,10 @@ export default class ProxyBar extends Component<ProxyBarProps, ProxyBarState> {
         </svg>
       </button>
       <ul>
-        {proxies.map(({ Icon, name }) => <li key={name}>
-          <Icon />
+        {proxies.map(({ Icon, id }) => <li key={id}>
+          <button className="proxy" onClick={this.onToggleProxy.bind(null, id)}>
+            <Icon />
+          </button>
         </li>)}
       </ul>
     </div>;
@@ -72,5 +82,9 @@ export default class ProxyBar extends Component<ProxyBarProps, ProxyBarState> {
         this.state.collapsed
       );
     });
+  };
+
+  private onToggleProxy = (id: string) => {
+    this.props.onToggleProxy(id);
   };
 }

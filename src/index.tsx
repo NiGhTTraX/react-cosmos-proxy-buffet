@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define,space-infix-ops */
-import React, { ComponentType } from 'react';
-import store from 'store';
+import React, { Component, ComponentType } from 'react';
 import 'reset.css';
+import store from 'store';
 import DefaultProxyBar, { Proxy, ProxyBarProps } from './proxy-bar';
 
 export type ProxyProps = {
@@ -10,11 +10,16 @@ export type ProxyProps = {
     next: Function
   },
   fixture: {
-    component: ComponentType
+    component: ComponentType,
+    props: Object
   },
   onComponentRef: Function,
   onFixtureUpdate: Function
 };
+
+interface ProxyBuffetState {
+  activeProxy: string | null;
+}
 
 export default function createProxyBuffet({
   ProxyBar = DefaultProxyBar,
@@ -23,13 +28,47 @@ export default function createProxyBuffet({
 ProxyBar?: ComponentType<ProxyBarProps>,
 proxies?: Proxy[]
 } = {}) {
-  return (props: ProxyProps) => {
-    const { nextProxy, ...rest } = props;
-    const { value: NextProxy, next } = nextProxy;
+  return class ProxyBuffet extends Component<ProxyProps, ProxyBuffetState> {
+    state = {
+      activeProxy: null
+    };
 
-    return <div className="proxy">
-      <ProxyBar proxies={proxies} storage={store} />
-      <NextProxy {...rest} nextProxy={next()} />
-    </div>;
+    render() {
+      return <div className="proxy-buffet">
+        <ProxyBar
+          proxies={proxies}
+          storage={store}
+          onToggleProxy={this.onToggleProxy}
+        />
+        <div className="proxy">
+          {this.wrapProxy()}
+        </div>
+      </div>;
+    }
+
+    private onToggleProxy = (id: string) => {
+      this.setState({
+        activeProxy: id
+      });
+    };
+
+    private wrapProxy() {
+      const { nextProxy, fixture, ...rest } = this.props;
+      const { value: NextProxy, next } = nextProxy;
+
+      const NextCosmosProxy = <NextProxy {...rest} fixture={fixture} nextProxy={next()} />;
+
+      const { activeProxy } = this.state;
+      if (activeProxy) {
+        // @ts-ignore
+        const ActiveProxy = proxies.find(proxy => proxy.id === activeProxy).Proxy;
+
+        return <ActiveProxy component={fixture.component} props={fixture.props}>
+          {NextCosmosProxy}
+        </ActiveProxy>;
+      }
+
+      return NextCosmosProxy;
+    }
   };
 }
