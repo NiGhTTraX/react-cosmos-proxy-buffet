@@ -8,13 +8,13 @@ import ProxyBar, {
   OnToggleProxy,
   Proxy,
   ProxyIconProps,
-  ProxyProps2
+  ProxyProps
 } from '../../src/proxy-bar';
 
 describe('ProxyBar', () => {
   let $proxyBar: JQuery;
 
-  const P1 = createReactStub<ProxyProps2>();
+  const P1 = createReactStub<ProxyProps>();
   const Proxy1: Proxy = {
     id: 'proxy 1',
     Icon: createReactStub<ProxyIconProps>()
@@ -23,7 +23,7 @@ describe('ProxyBar', () => {
     Proxy: P1
   };
 
-  const P2 = createReactStub<ProxyProps2>();
+  const P2 = createReactStub<ProxyProps>();
   const Proxy2: Proxy = {
     id: 'proxy 2',
     Icon: createReactStub<ProxyIconProps>()

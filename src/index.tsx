@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define,space-infix-ops */
 import React, { Component, ComponentType } from 'react';
+import store from 'store';
 import 'reset.css';
 import DefaultProxyBar, { Proxy, ProxyBarProps } from './proxy-bar';
 import DefaultProxyBuffet, { ProxyBuffetProps } from './proxy-buffet';
@@ -39,6 +40,7 @@ export default function createCosmosProxyBuffet({
         ProxyBar={ProxyBar}
         proxies={proxies}
         cosmosFixture={fixture}
+        storage={store}
       >
         {NextCosmosProxy}
       </ProxyBuffet>;

@@ -1,6 +1,5 @@
 import React, { Component, ComponentType } from 'react';
-import store from 'store';
-import { Proxy, ProxyBarProps } from './proxy-bar';
+import { IStorage, Proxy, ProxyBarProps } from './proxy-bar';
 
 export interface ProxyBuffetState {
   activeProxy: string | null;
@@ -15,6 +14,7 @@ export interface ProxyBuffetProps {
     component: ComponentType,
     props: Object
   },
+  storage: IStorage
 }
 
 export default class ProxyBuffet extends Component<ProxyBuffetProps, ProxyBuffetState> {
@@ -23,12 +23,12 @@ export default class ProxyBuffet extends Component<ProxyBuffetProps, ProxyBuffet
   };
 
   render() {
-    const { ProxyBar, proxies } = this.props;
+    const { ProxyBar, proxies, storage } = this.props;
 
     return <div className="proxy-buffet">
       <ProxyBar
         proxies={proxies}
-        storage={store}
+        storage={storage}
         onToggleProxy={this.onToggleProxy}
       />
       <div className="proxy">

@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { createReactStub } from 'react-mock-component';
-import { Proxy, ProxyBarProps, ProxyIconProps, ProxyProps2 } from '../../src/proxy-bar';
+import { IMock, Mock } from 'typemoq';
+import { IStorage, Proxy, ProxyBarProps, ProxyIconProps, ProxyProps } from '../../src/proxy-bar';
 import ProxyBuffet from '../../src/proxy-buffet';
 import { $render, describe, expect } from './suite';
 
 describe('ProxyBuffet', () => {
+  const storage: IMock<IStorage> = Mock.ofType<IStorage>();
+
   it('should render the bar', () => {
     const proxies: Proxy[] = [];
 
     const ProxyBar = createReactStub<ProxyBarProps>();
-    // TODO: what about `storage`?
-    ProxyBar.withProps({ proxies }).renders(<span>proxy bar</span>);
+    ProxyBar
+      .withProps({ proxies, storage: storage.object })
+      .renders(<span>proxy bar</span>);
 
     const fixture = {
       component: () => null,
@@ -21,6 +25,7 @@ describe('ProxyBuffet', () => {
       ProxyBar={ProxyBar}
       proxies={proxies}
       cosmosFixture={fixture}
+      storage={storage.object}
     >
       <span>cosmos content</span>
     </ProxyBuffet>);
@@ -31,7 +36,7 @@ describe('ProxyBuffet', () => {
   });
 
   it('should render the active proxy', () => {
-    const P = createReactStub<ProxyProps2>();
+    const P = createReactStub<ProxyProps>();
     const proxies: Proxy[] = [{
       id: 'proxy 1',
       Icon: createReactStub<ProxyIconProps>(),
@@ -39,7 +44,6 @@ describe('ProxyBuffet', () => {
     }];
 
     const ProxyBar = createReactStub<ProxyBarProps>();
-    // TODO: what about `storage`?
     ProxyBar.withProps({ proxies }).renders(<span>proxy bar</span>);
 
     const fixture = {
@@ -51,14 +55,14 @@ describe('ProxyBuffet', () => {
       ProxyBar={ProxyBar}
       proxies={proxies}
       cosmosFixture={fixture}
+      storage={storage.object}
     >
       <span>cosmos content</span>
     </ProxyBuffet>);
 
-    P.withProps({
-      component: fixture.component,
-      props: fixture.props
-    }).renders(<span>active proxy</span>);
+    P
+      .withProps({ component: fixture.component, props: fixture.props })
+      .renders(<span>active proxy</span>);
 
 
     ProxyBar.lastProps.onToggleProxy('proxy 1');

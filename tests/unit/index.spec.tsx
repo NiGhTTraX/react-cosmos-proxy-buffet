@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createReactStub } from 'react-mock-component';
 import { stub } from 'sinon';
 import createCosmosProxyBuffet, { CosmosProxyProps } from '../../src/index';
-import { Proxy, ProxyBarProps, ProxyIconProps, ProxyProps2 } from '../../src/proxy-bar';
+import { Proxy, ProxyBarProps, ProxyIconProps, ProxyProps } from '../../src/proxy-bar';
 import { ProxyBuffetProps } from '../../src/proxy-buffet';
 import { $render, describe, expect, it } from './suite';
 
@@ -44,7 +44,7 @@ describe('CosmosProxyBuffet', () => {
     const proxies: Proxy[] = [{
       id: 'proxy 1',
       Icon: createReactStub<ProxyIconProps>(),
-      Proxy: createReactStub<ProxyProps2>()
+      Proxy: createReactStub<ProxyProps>()
     }];
 
     const ProxyBar = createReactStub<ProxyBarProps>();

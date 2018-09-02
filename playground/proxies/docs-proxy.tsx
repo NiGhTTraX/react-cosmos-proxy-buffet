@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Proxy, ProxyProps2 } from '../../src/proxy-bar';
+import { Proxy, ProxyProps } from '../../src/proxy-bar';
 
 const proxy: Proxy = {
   id: 'docs proxy',
@@ -11,7 +11,7 @@ const proxy: Proxy = {
       />
     </svg>
   </span>,
-  Proxy: (props: ProxyProps2) => <div>
+  Proxy: (props: ProxyProps) => <div>
     proxy goes here
     {props.children}
   </div>

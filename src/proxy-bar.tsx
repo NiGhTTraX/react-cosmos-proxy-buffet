@@ -5,7 +5,7 @@ import './proxy-bar.less';
 export interface ProxyIconProps {
 }
 
-export interface ProxyProps2 {
+export interface ProxyProps {
   component: ComponentType,
   props: Object,
   children: ReactElement<any>
@@ -14,7 +14,7 @@ export interface ProxyProps2 {
 export interface Proxy {
   id: string;
   Icon: ComponentType<ProxyIconProps>,
-  Proxy: ComponentType<ProxyProps2>
+  Proxy: ComponentType<ProxyProps>
 }
 
 export interface IStorage {
