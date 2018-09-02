@@ -1,13 +1,36 @@
 import * as React from 'react';
 import { createReactStub } from 'react-mock-component';
 import { stub } from 'sinon';
-import createProxyBuffet, { ProxyProps } from '../../src/index';
+import createCosmosProxyBuffet, { CosmosProxyProps } from '../../src/index';
 import { Proxy, ProxyBarProps, ProxyIconProps, ProxyProps2 } from '../../src/proxy-bar';
+import { ProxyBuffetProps } from '../../src/proxy-buffet';
 import { $render, describe, expect, it } from './suite';
 
-describe('ProxyBar', () => {
-  it('it should render the next proxy', () => {
-    const { NextProxy, nextProxy, ProxyBar, props } = createProxyProps();
+describe('CosmosProxyBuffet', () => {
+  it('it pass all the Cosmos props to ProxyBuffet', () => {
+    const NextProxy = createReactStub<CosmosProxyProps>();
+    const nextProxy = {
+      value: () => null,
+      next: () => null
+    };
+    const next = stub().returns(nextProxy);
+
+    const props: CosmosProxyProps = {
+      nextProxy: {
+        value: NextProxy,
+        next
+      },
+      fixture: {
+        component: () => <span>component</span>,
+        props: {
+          foo: 'bar'
+        }
+      },
+      onFixtureUpdate: () => {
+      },
+      onComponentRef: () => {
+      }
+    };
 
     NextProxy
       .withProps({
@@ -18,82 +41,34 @@ describe('ProxyBar', () => {
       })
       .renders(<span>next proxy</span>);
 
-    const ProxyBuffet = createProxyBuffet({ ProxyBar });
-    const $proxyBar = $render(<ProxyBuffet {...props} />);
-
-    expect($proxyBar.text()).to.contain('next proxy');
-    expect($proxyBar.text()).to.contain('proxy bar');
-  });
-
-  it('should accept a list of proxies', () => {
-    const { props } = createProxyProps();
-
     const proxies: Proxy[] = [{
       id: 'proxy 1',
       Icon: createReactStub<ProxyIconProps>(),
-      Proxy: () => null
+      Proxy: createReactStub<ProxyProps2>()
     }];
 
     const ProxyBar = createReactStub<ProxyBarProps>();
 
-    const ProxyBuffet = createProxyBuffet({ ProxyBar, proxies });
-    $render(<ProxyBuffet {...props} />);
+    const ProxyBuffet = createReactStub<ProxyBuffetProps>();
+    ProxyBuffet
+      .withProps({
+        ProxyBar,
+        proxies,
+        cosmosFixture: props.fixture
+      })
+      .renders(<span>proxy buffet</span>);
 
-    expect(ProxyBar.renderedWith({ proxies })).to.be.true;
-  });
+    const CosmosProxyBuffet = createCosmosProxyBuffet({
+      ProxyBar,
+      ProxyBuffet,
+      proxies
+    });
 
-  it('should render the active proxy', () => {
-    const { props } = createProxyProps();
+    const $cosmosProxyBuffet = $render(<CosmosProxyBuffet {...props} />);
 
-    const P = createReactStub<ProxyProps2>();
-    const proxies: Proxy[] = [{
-      id: 'proxy 1',
-      Icon: createReactStub<ProxyIconProps>(),
-      Proxy: P
-    }];
+    expect($cosmosProxyBuffet.text()).to.equal('proxy buffet');
 
-    const ProxyBar = createReactStub<ProxyBarProps>();
-
-    const ProxyBuffet = createProxyBuffet({ ProxyBar, proxies });
-    const $x = $render(<ProxyBuffet {...props} />);
-
-    P.withProps(props.fixture).renders(<span>xxx</span>);
-
-    ProxyBar.lastProps.onToggleProxy('proxy 1');
-
-    expect($x.find('.proxy').text()).to.contain('xxx');
+    const $children = $render(ProxyBuffet.lastProps.children);
+    expect($children.text()).to.equal('next proxy');
   });
 });
-
-function createProxyProps() {
-  const NextProxy = createReactStub<ProxyProps>();
-  const nextProxy = {
-    value: () => null,
-    next: () => null
-  };
-  const next = stub()
-    .returns(nextProxy);
-
-  const ProxyBar = createReactStub<ProxyBarProps>();
-  ProxyBar.withProps({})
-    .renders(<span>proxy bar</span>);
-
-  const props: ProxyProps = {
-    nextProxy: {
-      value: NextProxy,
-      next
-    },
-    fixture: {
-      component: () => <span>component</span>,
-      props: {
-        foo: 'bar'
-      }
-    },
-    onFixtureUpdate: () => {
-    },
-    onComponentRef: () => {
-    }
-  };
-
-  return { NextProxy, nextProxy, ProxyBar, props };
-}
