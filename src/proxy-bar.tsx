@@ -1,5 +1,6 @@
-import React, { Component, ComponentType, ReactElement } from 'react';
 import classNames from 'classnames';
+import React, { Component, ComponentType, ReactElement } from 'react';
+import { Omit } from './bind';
 import './proxy-bar.less';
 
 export interface ProxyIconProps {
@@ -88,3 +89,5 @@ export default class ProxyBar extends Component<ProxyBarProps, ProxyBarState> {
     this.props.onToggleProxy(id);
   };
 }
+
+export type ProxyBarFactoryProps = Omit<ProxyBarProps, 'storage'>;

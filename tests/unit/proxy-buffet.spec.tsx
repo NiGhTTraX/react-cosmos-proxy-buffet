@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { createReactStub } from 'react-mock-component';
-import { IMock, Mock } from 'typemoq';
-import { IStorage, Proxy, ProxyBarProps, ProxyIconProps, ProxyProps } from '../../src/proxy-bar';
+import {
+  Proxy,
+  ProxyBarFactoryProps,
+  ProxyIconProps,
+  ProxyProps
+} from '../../src/proxy-bar';
 import ProxyBuffet from '../../src/proxy-buffet';
 import { $render, describe, expect } from './suite';
 
 describe('ProxyBuffet', () => {
-  const storage: IMock<IStorage> = Mock.ofType<IStorage>();
-
   it('should render the bar', () => {
     const proxies: Proxy[] = [];
 
-    const ProxyBar = createReactStub<ProxyBarProps>();
+    const ProxyBar = createReactStub<ProxyBarFactoryProps>();
     ProxyBar
-      .withProps({ proxies, storage: storage.object })
+      .withProps({ proxies })
       .renders(<span>proxy bar</span>);
 
     const fixture = {
@@ -25,7 +27,6 @@ describe('ProxyBuffet', () => {
       ProxyBar={ProxyBar}
       proxies={proxies}
       cosmosFixture={fixture}
-      storage={storage.object}
     >
       <span>cosmos content</span>
     </ProxyBuffet>);
@@ -43,7 +44,7 @@ describe('ProxyBuffet', () => {
       Proxy: P
     }];
 
-    const ProxyBar = createReactStub<ProxyBarProps>();
+    const ProxyBar = createReactStub<ProxyBarFactoryProps>();
     ProxyBar.withProps({ proxies }).renders(<span>proxy bar</span>);
 
     const fixture = {
@@ -55,7 +56,6 @@ describe('ProxyBuffet', () => {
       ProxyBar={ProxyBar}
       proxies={proxies}
       cosmosFixture={fixture}
-      storage={storage.object}
     >
       <span>cosmos content</span>
     </ProxyBuffet>);

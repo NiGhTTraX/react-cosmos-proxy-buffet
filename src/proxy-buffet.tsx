@@ -1,20 +1,19 @@
 import React, { Component, ComponentType } from 'react';
-import { IStorage, Proxy, ProxyBarProps } from './proxy-bar';
+import { Proxy, ProxyBarFactoryProps } from './proxy-bar';
 
-export interface ProxyBuffetState {
+interface ProxyBuffetState {
   activeProxy: string | null;
 }
 
 export interface ProxyBuffetProps {
-  ProxyBar: ComponentType<ProxyBarProps>,
+  ProxyBar: ComponentType<ProxyBarFactoryProps>,
   // Whatever Cosmos would have rendered.
   children: JSX.Element,
   proxies: Proxy[],
   cosmosFixture: {
     component: ComponentType,
     props: Object
-  },
-  storage: IStorage
+  }
 }
 
 export default class ProxyBuffet extends Component<ProxyBuffetProps, ProxyBuffetState> {
@@ -23,12 +22,11 @@ export default class ProxyBuffet extends Component<ProxyBuffetProps, ProxyBuffet
   };
 
   render() {
-    const { ProxyBar, proxies, storage } = this.props;
+    const { ProxyBar, proxies } = this.props;
 
     return <div className="proxy-buffet">
       <ProxyBar
         proxies={proxies}
-        storage={storage}
         onToggleProxy={this.onToggleProxy}
       />
       <div className="proxy">

@@ -52,7 +52,6 @@ describe('CosmosProxyBuffet', () => {
     const ProxyBuffet = createReactStub<ProxyBuffetProps>();
     ProxyBuffet
       .withProps({
-        ProxyBar,
         proxies,
         cosmosFixture: props.fixture
       })

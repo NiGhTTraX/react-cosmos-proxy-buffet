@@ -2,6 +2,7 @@
 import React, { Component, ComponentType } from 'react';
 import store from 'store';
 import 'reset.css';
+import bindComponent from './bind';
 import DefaultProxyBar, { Proxy, ProxyBarProps } from './proxy-bar';
 import DefaultProxyBuffet, { ProxyBuffetProps } from './proxy-buffet';
 
@@ -37,10 +38,9 @@ export default function createCosmosProxyBuffet({
       const NextCosmosProxy = <NextProxy {...rest} fixture={fixture} nextProxy={next()} />;
 
       return <ProxyBuffet
-        ProxyBar={ProxyBar}
+        ProxyBar={bindComponent(ProxyBar, { storage: store })}
         proxies={proxies}
         cosmosFixture={fixture}
-        storage={store}
       >
         {NextCosmosProxy}
       </ProxyBuffet>;
