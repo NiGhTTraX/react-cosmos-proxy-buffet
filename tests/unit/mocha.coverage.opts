@@ -1,2 +1,3 @@
---file tests/unit/helpers/jsdom-setup.ts
+--require ignore-styles
+--file tests/unit/jsdom-setup.ts
 tests/**/*.spec.{ts,tsx}
