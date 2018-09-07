@@ -2,14 +2,15 @@ import React from 'react';
 import { Simulate } from 'react-dom/test-utils';
 import { createReactStub } from 'react-mock-component';
 import { IMock, Mock } from 'typemoq';
-import { describe, it, $render, expect, beforeEach } from './suite';
 import ProxyBar, {
   IStorage,
   OnToggleProxy,
   Proxy,
+  ProxyBarPosition,
   ProxyIconProps,
   ProxyProps
 } from '../../src/proxy-bar';
+import { $render, beforeEach, describe, expect, it } from './suite';
 
 describe('ProxyBar', () => {
   let $proxyBar: JQuery;
@@ -110,6 +111,17 @@ describe('ProxyBar', () => {
 
     it('should render by default in the bottom right', () => {
       expect($proxyBar.hasClass('bottom-right')).to.be.true;
+    });
+
+    it('should respect the location settings', () => {
+      $proxyBar = $render(<ProxyBar
+        proxies={proxies}
+        storage={storage.object}
+        onToggleProxy={onToggleProxy.object}
+        position={ProxyBarPosition.TopLeft}
+      />);
+
+      expect($proxyBar.hasClass('top-left')).to.be.true;
     });
 
     it('should render the icons for all proxies', () => {

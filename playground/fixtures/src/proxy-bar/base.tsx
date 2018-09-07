@@ -1,4 +1,4 @@
-import ProxyBar, { IStorage, ProxyBarProps } from '../../../../src/proxy-bar';
+import ProxyBar, { IStorage, ProxyBarPosition, ProxyBarProps } from '../../../../src/proxy-bar';
 import DocsProxy from '../../../proxies/docs-proxy';
 
 const blackHoleStorage: IStorage = {
@@ -6,13 +6,17 @@ const blackHoleStorage: IStorage = {
   set: () => {}
 };
 
-const props: ProxyBarProps = {
-  proxies: [DocsProxy],
-  storage: blackHoleStorage,
-  onToggleProxy: () => {}
-};
+export default Object.values(ProxyBarPosition).map(position => {
+  const props: ProxyBarProps = {
+    proxies: [DocsProxy],
+    storage: blackHoleStorage,
+    onToggleProxy: () => {},
+    position
+  };
 
-export default {
-  component: ProxyBar,
-  props
-};
+  return {
+    component: ProxyBar,
+    name: position,
+    props
+  };
+});

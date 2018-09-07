@@ -25,10 +25,18 @@ export interface IStorage {
 
 export type OnToggleProxy = (id: string) => void;
 
+export enum ProxyBarPosition {
+  TopLeft = 'top-left',
+  TopRight = 'top-right',
+  BottomLeft = 'bottom-left',
+  BottomRight = 'bottom-right',
+}
+
 export interface ProxyBarProps {
-  proxies: Proxy[],
-  storage: IStorage,
+  proxies: Proxy[];
+  storage: IStorage;
   onToggleProxy: OnToggleProxy;
+  position?: ProxyBarPosition
 }
 
 interface ProxyBarState {
@@ -46,9 +54,16 @@ export default class ProxyBar extends Component<ProxyBarProps, ProxyBarState> {
   }
 
   render() {
-    const { proxies } = this.props;
+    const {
+      proxies,
+      position = ProxyBarPosition.BottomRight
+    } = this.props;
 
-    const classes = classNames('proxy-bar bottom-right', {
+    const classes = classNames('proxy-bar', {
+      'top-left': position === ProxyBarPosition.TopLeft,
+      'top-right': position === ProxyBarPosition.TopRight,
+      'bottom-left': position === ProxyBarPosition.BottomLeft,
+      'bottom-right': position === ProxyBarPosition.BottomRight,
       expanded: !this.state.collapsed
     });
 

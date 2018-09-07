@@ -8,14 +8,31 @@
   height: 40px;
   transition: all .2s;
 
-  &.bottom-right {
+  &.top-left, &.top-right {
+    top: 0;
+  }
+
+  &.bottom-left, &.bottom-right {
     bottom: 0;
+  }
+
+  &.top-left, &.bottom-left {
+    left: 0;
+    transform: translateX(-100%) translateX(@toggle-width);
+    flex-direction: row-reverse;
+
+    .toggle {
+      transform: rotate(180deg);
+    }
+  }
+
+  &.top-right, &.bottom-right {
     right: 0;
     transform: translateX(100%) translateX(-@toggle-width);
+  }
 
-    &.expanded {
-      transform: translateX(0);
-    }
+  &.expanded {
+    transform: translateX(0);
   }
 
   background: #0c293d;

@@ -12,8 +12,8 @@ const proxy: Proxy = {
     </svg>
   </span>,
   Proxy: (props: ProxyProps) => <div>
-    proxy goes here
-    {props.children}
+    <div>docs table would go here</div>
+    <div>{props.children}</div>
   </div>
 };
 
