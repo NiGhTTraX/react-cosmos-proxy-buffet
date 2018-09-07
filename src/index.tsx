@@ -3,8 +3,8 @@ import React, { Component, ComponentType } from 'react';
 import store from 'store';
 import 'reset.css';
 import bindComponent from './bind';
-import DefaultProxyBar, { Proxy, ProxyBarProps } from './proxy-bar';
-import DefaultProxyBuffet, { ProxyBuffetProps } from './proxy-buffet';
+import ProxyBar, { Proxy } from './proxy-bar';
+import ProxyBuffet from './proxy-buffet';
 
 export type CosmosProxyProps = {
   nextProxy: {
@@ -20,14 +20,10 @@ export type CosmosProxyProps = {
 };
 
 export interface ProxyBuffetOptions {
-  ProxyBar?: ComponentType<ProxyBarProps>,
-  ProxyBuffet?: ComponentType<ProxyBuffetProps>,
   proxies: Proxy[]
 }
 
 export default function createCosmosProxyBuffet({
-  ProxyBar = DefaultProxyBar,
-  ProxyBuffet = DefaultProxyBuffet,
   proxies
 }: ProxyBuffetOptions) {
   return class ComosProxyBuffet extends Component<CosmosProxyProps> {

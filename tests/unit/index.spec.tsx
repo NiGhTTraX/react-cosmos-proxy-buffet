@@ -2,12 +2,10 @@ import * as React from 'react';
 import { createReactStub } from 'react-mock-component';
 import { stub } from 'sinon';
 import createCosmosProxyBuffet, { CosmosProxyProps } from '../../src/index';
-import { Proxy, ProxyBarProps, ProxyIconProps, ProxyProps } from '../../src/proxy-bar';
-import { ProxyBuffetProps } from '../../src/proxy-buffet';
 import { $render, describe, expect, it } from './suite';
 
 describe('CosmosProxyBuffet', () => {
-  it('it pass all the Cosmos props to ProxyBuffet', () => {
+  it('it render the next Cosmos proxy', () => {
     const NextProxy = createReactStub<CosmosProxyProps>();
     const nextProxy = {
       value: () => null,
@@ -41,33 +39,12 @@ describe('CosmosProxyBuffet', () => {
       })
       .renders(<span>next proxy</span>);
 
-    const proxies: Proxy[] = [{
-      id: 'proxy 1',
-      Icon: createReactStub<ProxyIconProps>(),
-      Proxy: createReactStub<ProxyProps>()
-    }];
-
-    const ProxyBar = createReactStub<ProxyBarProps>();
-
-    const ProxyBuffet = createReactStub<ProxyBuffetProps>();
-    ProxyBuffet
-      .withProps({
-        proxies,
-        cosmosFixture: props.fixture
-      })
-      .renders(<span>proxy buffet</span>);
-
     const CosmosProxyBuffet = createCosmosProxyBuffet({
-      ProxyBar,
-      ProxyBuffet,
-      proxies
+      proxies: []
     });
 
     const $cosmosProxyBuffet = $render(<CosmosProxyBuffet {...props} />);
 
-    expect($cosmosProxyBuffet.text()).to.equal('proxy buffet');
-
-    const $children = $render(ProxyBuffet.lastProps.children);
-    expect($children.text()).to.equal('next proxy');
+    expect($cosmosProxyBuffet.text()).to.equal('next proxy');
   });
 });
