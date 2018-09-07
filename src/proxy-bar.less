@@ -1,13 +1,21 @@
 @import '~reset.css';
 
+@toggle-width: 20px;
+
 .proxy-bar {
   position: fixed;
   display: flex;
   height: 40px;
+  transition: all .2s;
 
   &.bottom-right {
     bottom: 0;
     right: 0;
+    transform: translateX(100%) translateX(-@toggle-width);
+
+    &.expanded {
+      transform: translateX(0);
+    }
   }
 
   background: #0c293d;
@@ -16,19 +24,11 @@
     background: transparent;
     border: none;
     outline: none;
+    padding: 0;
+    width: @toggle-width;
 
     &:hover {
       background: rgba(255, 255, 255, 0.1);
-    }
-  }
-
-  ul {
-    display: none;
-  }
-
-  &.expanded {
-    ul {
-      display: block;
     }
   }
 
@@ -40,7 +40,13 @@
     justify-content: center;
 
     button {
-      .toggle;
+      background: transparent;
+      border: none;
+      outline: none;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
 
       width: 100%;
       height: 100%;
