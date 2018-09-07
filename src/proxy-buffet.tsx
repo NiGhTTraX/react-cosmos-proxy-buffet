@@ -37,7 +37,7 @@ export default class ProxyBuffet extends Component<ProxyBuffetProps, ProxyBuffet
 
   private onToggleProxy = (id: string) => {
     this.setState({
-      activeProxy: id
+      activeProxy: this.state.activeProxy === id ? null : id
     });
   };
 
