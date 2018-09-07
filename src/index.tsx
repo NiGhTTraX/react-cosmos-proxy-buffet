@@ -35,7 +35,6 @@ export default function createCosmosProxyBuffet({
         {...rest}
         fixture={fixture}
         nextProxy={next()}
-        key="cosmos-proxy" // to not lose state when a proxy is activated
       />;
 
       return <ProxyBuffet
