@@ -31,7 +31,12 @@ export default function createCosmosProxyBuffet({
       const { nextProxy, fixture, ...rest } = this.props;
       const { value: NextProxy, next } = nextProxy;
 
-      const NextCosmosProxy = <NextProxy {...rest} fixture={fixture} nextProxy={next()} />;
+      const NextCosmosProxy = <NextProxy
+        {...rest}
+        fixture={fixture}
+        nextProxy={next()}
+        key="cosmos-proxy" // to not lose state when a proxy is activated
+      />;
 
       return <ProxyBuffet
         ProxyBar={bindComponent(ProxyBar, { storage: store })}
