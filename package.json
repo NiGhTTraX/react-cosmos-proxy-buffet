@@ -2,6 +2,10 @@
   "name": "react-cosmos-proxy-buffet",
   "version": "0.0.1",
   "description": "Extensions bar plugin for React Cosmos",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NiGhTTraX/react-cosmos-proxy-buffet.git"
+  },
   "keywords": [
     "react",
     "cosmos",
