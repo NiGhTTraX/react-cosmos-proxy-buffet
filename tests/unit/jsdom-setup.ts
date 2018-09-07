@@ -7,6 +7,7 @@ declare global {
       document: any;
       navigator: any;
       requestAnimationFrame: any;
+      cancelAnimationFrame: any;
       HTMLElement: any;
     }
   }
@@ -18,9 +19,10 @@ global.document = global.window.document;
 global.navigator = {
   userAgent: 'node.js'
 };
-global.requestAnimationFrame = function (callback: () => void) {
+global.requestAnimationFrame = (callback: () => void) => {
   setTimeout(callback, 0);
 };
+global.cancelAnimationFrame = () => {};
 
 // SinonJS needs this.
 global.HTMLElement = global.window.HTMLElement;
