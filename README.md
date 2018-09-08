@@ -3,6 +3,8 @@
 
 ## Usage
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/NiGhTTraX/react-cosmos-proxy-buffet.svg)](https://greenkeeper.io/)
+
 ```js
 // cosmos.proxies.js
 import createProxyBuffet from 'react-cosmos-proxy-buffet';
