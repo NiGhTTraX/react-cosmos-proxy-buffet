@@ -18,21 +18,56 @@
 
   &.top-left, &.bottom-left {
     left: 0;
-    transform: translateX(-100%) translateX(@toggle-width);
+    transform: translateX(-100%) translateX(@toggle-width / 4);
     flex-direction: row-reverse;
 
+    &:hover {
+      transform: translateX(-100%) translateX(@toggle-width);
+    }
+
     .toggle {
-      transform: rotate(180deg);
+      transform: rotateY(-180deg);
+    }
+
+    &.expanded {
+      .toggle {
+        transform: rotateY(0);
+      }
     }
   }
 
   &.top-right, &.bottom-right {
     right: 0;
-    transform: translateX(100%) translateX(-@toggle-width);
+    transform: translateX(100%) translateX(-@toggle-width / 4);
+
+    &:hover {
+      transform: translateX(100%) translateX(-@toggle-width);
+    }
+
+    &.expanded {
+      .toggle {
+        transform: rotateY(180deg);
+      }
+    }
+  }
+
+  &:hover {
+    .toggle {
+      opacity: 1;
+    }
   }
 
   &.expanded {
     transform: translateX(0);
+
+    .toggle {
+      opacity: 1;
+      transform: rotateY(0);
+    }
+
+    &:hover {
+      transform: rotateY(0);
+    }
   }
 
   background: #0c293d;
@@ -43,6 +78,9 @@
     outline: none;
     padding: 0;
     width: @toggle-width;
+    transition: all .2s;
+    transform: rotateY(0deg);
+    opacity: 0;
 
     &:hover {
       background: rgba(255, 255, 255, 0.1);
