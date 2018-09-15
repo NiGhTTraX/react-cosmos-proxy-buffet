@@ -8,7 +8,10 @@ const blackHoleStorage: IStorage = {
 
 export default Object.values(ProxyBarPosition).map(position => {
   const props: ProxyBarProps = {
-    proxies: [DocsProxy],
+    proxies: [
+      Object.assign({}, DocsProxy, { id: 1 }),
+      Object.assign({}, DocsProxy, { id: 2 })
+    ],
     storage: blackHoleStorage,
     onToggleProxy: () => {},
     position
