@@ -9,6 +9,8 @@ export interface ProxyIconProps {
 export interface ProxyProps {
   component: ComponentType,
   props: Object,
+  visible?: boolean,
+  // Whatever Cosmos would have rendered.
   children: ReactElement<any>
 }
 

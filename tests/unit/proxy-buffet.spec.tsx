@@ -36,7 +36,54 @@ describe('ProxyBuffet', () => {
       .and.to.contain('cosmos content');
   });
 
-  it('should activate the proxy', () => {
+  it('should render the chain of proxies', () => {
+    const P1 = createReactStub<ProxyProps>();
+    const P2 = createReactStub<ProxyProps>();
+    const proxies: Proxy[] = [{
+      id: 'proxy 1',
+      Icon: createReactStub<ProxyIconProps>(),
+      Proxy: P1
+    }, {
+      id: 'proxy 2',
+      Icon: createReactStub<ProxyIconProps>(),
+      Proxy: P2
+    }];
+
+    const ProxyBar = createReactStub<ProxyBarFactoryProps>();
+
+    const fixture = {
+      component: () => null,
+      props: {}
+    };
+
+    P1.withProps({
+      component: fixture.component,
+      props: fixture.props
+    }).renders(<span>proxy 1</span>);
+
+    P2.withProps({
+      component: fixture.component,
+      props: fixture.props
+    }).renders(<span>proxy 2</span>);
+
+    const $proxyBuffet = $render(<ProxyBuffet
+      ProxyBar={ProxyBar}
+      proxies={proxies}
+      cosmosFixture={fixture}
+    >
+      <span>cosmos content</span>
+    </ProxyBuffet>);
+
+    expect($proxyBuffet.text()).to.contain('proxy 1');
+
+    const $p1Children = $render(P1.lastProps.children);
+    expect($p1Children.text()).to.contain('proxy 2');
+
+    const $p2Children = $render(P2.lastProps.children);
+    expect($p2Children.text()).to.contain('cosmos content');
+  });
+
+  it('should activate a proxy', () => {
     const P = createReactStub<ProxyProps>();
     const proxies: Proxy[] = [{
       id: 'proxy 1',
@@ -61,19 +108,18 @@ describe('ProxyBuffet', () => {
     </ProxyBuffet>);
 
     P
-      .withProps({ component: fixture.component, props: fixture.props })
-      .renders(<span>active proxy</span>);
-
+      .withProps({ visible: true })
+      .renders(<span>visible proxy</span>);
 
     ProxyBar.lastProps.onToggleProxy('proxy 1');
 
-    expect($proxyBuffet.text()).to.contain('active proxy');
+    expect($proxyBuffet.text()).to.contain('visible proxy');
 
     const $children = $render(P.lastProps.children);
     expect($children.text()).to.equal('cosmos content');
   });
 
-  it('should deactivate the proxy', () => {
+  it('should deactivate a proxy', () => {
     const P = createReactStub<ProxyProps>();
     const proxies: Proxy[] = [{
       id: 'proxy 1',
@@ -89,7 +135,7 @@ describe('ProxyBuffet', () => {
       props: {}
     };
 
-    const $proxyBuffet = $render(<ProxyBuffet
+    $render(<ProxyBuffet
       ProxyBar={ProxyBar}
       proxies={proxies}
       cosmosFixture={fixture}
@@ -97,14 +143,12 @@ describe('ProxyBuffet', () => {
       <span>cosmos content</span>
     </ProxyBuffet>);
 
-    P
-      .withProps({ component: fixture.component, props: fixture.props })
-      .renders(<span>active proxy</span>);
-
-
-    ProxyBar.lastProps.onToggleProxy('proxy 1');
     ProxyBar.lastProps.onToggleProxy('proxy 1');
 
-    expect($proxyBuffet.text()).to.not.contain('active proxy');
+    P.sinonStub.reset();
+
+    ProxyBar.lastProps.onToggleProxy('proxy 1');
+
+    expect(P.renderedWith({ visible: false })).to.be.true;
   });
 });

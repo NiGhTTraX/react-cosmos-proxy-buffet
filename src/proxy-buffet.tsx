@@ -30,7 +30,7 @@ export default class ProxyBuffet extends Component<ProxyBuffetProps, ProxyBuffet
         onToggleProxy={this.onToggleProxy}
       />
       <div className="proxy">
-        {this.wrapProxy()}
+        {this.proxyChain()}
       </div>
     </div>;
   }
@@ -41,20 +41,23 @@ export default class ProxyBuffet extends Component<ProxyBuffetProps, ProxyBuffet
     });
   };
 
-  private wrapProxy() {
+  private proxyChain() {
     const { children, proxies, cosmosFixture } = this.props;
     const { activeProxy } = this.state;
 
-    if (activeProxy) {
-      const foundProxy = proxies.find(proxy => proxy.id === activeProxy);
-      // @ts-ignore
-      const ActiveProxy = foundProxy.Proxy;
+    let proxyChildren = children; // first the Cosmos one
+    for (let i = proxies.length - 1; i >= 0; i--) {
+      const { Proxy: CurrentProxy, id } = proxies[i];
 
-      return <ActiveProxy component={cosmosFixture.component} props={cosmosFixture.props}>
-        {children}
-      </ActiveProxy>;
+      proxyChildren = <CurrentProxy
+        component={cosmosFixture.component}
+        props={cosmosFixture.props}
+        visible={id === activeProxy}
+      >
+        {proxyChildren}
+      </CurrentProxy>;
     }
 
-    return children;
+    return proxyChildren;
   }
 }

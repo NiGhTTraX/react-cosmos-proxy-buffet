@@ -1,7 +1,7 @@
 import ProxyBar, { IStorage, ProxyBarPosition, ProxyBarProps } from '../../../../src/proxy-bar';
 import DocsProxy from '../../../proxies/docs-proxy';
 
-const blackHoleStorage: IStorage = {
+export const blackHoleStorage: IStorage = {
   get: () => null,
   set: () => {}
 };
