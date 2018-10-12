@@ -1,9 +1,14 @@
 module.exports = {
   rootPath: '../',
 
-  fileMatch: ['**/fixtures/**/*.{ts,tsx}'],
-  exclude: [/\.d\.ts$/],
+  ...(process.env.acceptance ? {
+    fileMatch: ['**/fixtures/playground/**/*.{ts,tsx}']
+  } : {
+    fileMatch: ['**/fixtures/src/**/*.{ts,tsx}']
+  }),
+
   watchDirs: ['src', 'playground'],
+  exclude: [/\.d\.ts$/],
 
   proxiesPath: 'playground/cosmos.proxies.js',
   webpackConfigPath: 'webpack.config.js',

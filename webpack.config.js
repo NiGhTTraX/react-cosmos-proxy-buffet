@@ -1,5 +1,5 @@
 const path = require('path');
-const { HotModuleReplacementPlugin, NoEmitOnErrorsPlugin } = require('webpack');
+const { HotModuleReplacementPlugin, NoEmitOnErrorsPlugin, EnvironmentPlugin } = require('webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -33,6 +33,9 @@ module.exports = {
 
   plugins: [
     new HotModuleReplacementPlugin(),
-    new NoEmitOnErrorsPlugin()
+    new NoEmitOnErrorsPlugin(),
+    new EnvironmentPlugin({
+      acceptance: false
+    })
   ]
 };
