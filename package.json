@@ -25,6 +25,12 @@
     "lint": "eslint --ext ts,tsx .",
     "test": "TS_NODE_CACHE=0 mocha --opts tests/unit/mocha.opts",
     "test:coverage": "NODE_ENV=coverage nyc mocha --opts tests/unit/mocha.coverage.opts",
+    "test:gui": "./tests/gui/run.sh",
+    "test:gui:debug": "./tests/gui/debug.sh",
+    "test:gui:selenium": "./tests/gui/debug-selenium.sh",
+    "_test:gui:fixtures": "cd playground && ./get-fixtures.js",
+    "_test:gui": "TS_NODE_CACHE=0 mocha --opts tests/gui/mocha.opts",
+    "_test:gui:debug": "TS_NODE_CACHE=0 SELENIUM_HOST=localhost mocha --opts tests/gui/mocha.debug.opts",
     "report-coverage": "nyc report --reporter=json && codecov -f tests/results/coverage/coverage-final.json",
     "precommit": "lint-staged"
   },
@@ -60,6 +66,7 @@
     "@types/react-dom": "~16.0.7",
     "@types/sinon": "~5.0.2",
     "@types/store": "~2.0.0",
+    "@types/webdriverio": "~4.10.3",
     "babel-loader": "~8.0.2",
     "babel-plugin-istanbul": "~5.0.1",
     "babel-plugin-module-resolver": "~3.1.1",
@@ -81,6 +88,9 @@
     "less-loader": "~4.1.0",
     "lint-staged": "~7.2.2",
     "mocha": "~5.2.0",
+    "mugshot": "latest",
+    "mugshot-looks-same": "~1.0.0",
+    "mugshot-webdriverio": "latest",
     "nyc": "~13.0.1",
     "react": "~16.5.0",
     "react-cosmos": "~4.6.4",
@@ -92,7 +102,10 @@
     "typemoq": "~2.1.0",
     "typescript": "~3.0.3",
     "typescript-eslint-parser": "~18.0.0",
-    "webpack": "~4.17.2"
+    "webdriverio": "latest",
+    "webpack": "~4.17.2",
+    "react-cosmos-shared": "latest",
+    "react-cosmos-voyager2": "latest"
   },
   "files": [
     "dist/src/**/*"

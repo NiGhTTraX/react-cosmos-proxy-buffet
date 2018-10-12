@@ -10,6 +10,7 @@ module.exports = {
   watchDirs: ['src', 'playground'],
   exclude: [/\.d\.ts$/],
 
+  globalImports: ['playground/styles.less'],
   proxiesPath: 'playground/cosmos.proxies.js',
   webpackConfigPath: 'webpack.config.js',
 

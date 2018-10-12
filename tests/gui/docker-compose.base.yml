@@ -1,0 +1,33 @@
+version: '2.1'
+
+services:
+  playground:
+    extends:
+      file: ../../docker-compose.yml
+      service: playground
+    expose:
+      - '8989'
+    volumes:
+      - ../../src:/usr/src/app/src:ro
+      - ./screenshots:/usr/src/app/tests/gui/screenshots
+      - ./results/coverage:/usr/src/app/tests/gui/results/coverage
+
+  selenium:
+    image: selenium/hub:3.14.0-gallium
+    expose:
+      - '4444'
+    ports:
+      - '4444:4444' # so we can ping for the status of the nodes
+    devices:
+      # Try to prevent Selenium from blocking when creating sessions due to
+      # limited entropy.
+      - /dev/urandom:/dev/random
+
+  chrome:
+    image: selenium/node-chrome:3.14.0-gallium
+
+  firefox:
+    image: selenium/node-firefox:3.14.0-gallium
+
+  debug_node:
+    image: "selenium/node-${BROWSER:-chrome}-debug:3.14.0-gallium"
