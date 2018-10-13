@@ -1,5 +1,5 @@
 node_modules
 dist
-tests/results
+results
 .nyc_output
 fixtures.json
