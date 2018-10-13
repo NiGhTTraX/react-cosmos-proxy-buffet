@@ -35,7 +35,8 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.tsx?": "eslint"
+    "*.tsx?": "eslint",
+    "*.js":  "eslint"
   },
   "author": "Andrei Picus",
   "license": "MIT",
