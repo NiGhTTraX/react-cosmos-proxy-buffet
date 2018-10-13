@@ -24,10 +24,11 @@ docker-compose build
 # before and it left things behind.
 docker-compose up -d --force-recreate --remove-orphans selenium
 
-./wait-for-nodes.sh 2
+# TODO: firefox is disabled because it has problems with taking screenshots of #root
+./wait-for-nodes.sh 1
 
 # compose up exits with 0 no matter what.
-docker-compose up chrome_tests firefox_tests
+docker-compose up chrome_tests # firefox_tests
 
 # Aggregate results from all the containers.
 RESULT=$(docker-compose ps -q \
