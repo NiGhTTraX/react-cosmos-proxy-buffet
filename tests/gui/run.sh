@@ -9,11 +9,8 @@ set -e
 
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-# If we don't create these here, docker-compose will and they will be owned by
-# root.
-mkdir -p screenshots/chrome screenshots/firefox
-
 rm -rf ./results
+mkdir -p screenshots
 mkdir -p ./results/coverage
 
 docker-compose build
@@ -25,13 +22,10 @@ docker-compose up -d --force-recreate --remove-orphans selenium
 # TODO: firefox is disabled because it has problems with taking screenshots of #root
 ./wait-for-nodes.sh 1
 
-# compose up exits with 0 no matter what.
-docker-compose up chrome_tests # firefox_tests
-
-# Aggregate results from all the containers.
-RESULT=$(docker-compose ps -q \
-  | xargs docker inspect -f '{{ .State.ExitCode }}' \
-  | grep -v 0 | wc -l | tr -d ' ')
+set +e
+COVERAGE=1 BROWSER=chrome npm run _test:gui
+RESULT=$?
+set -e
 
 if [[ ${RESULT} != 0 ]]; then
   echo Playground logs:

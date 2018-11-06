@@ -16,7 +16,7 @@ import {
 
 export type TestDefinition = (browser: Client<RawResult<null>>) => Promise<any> | void;
 
-const { BROWSER = 'chrome', SELENIUM_HOST = 'selenium' } = process.env;
+const { BROWSER = 'chrome', SELENIUM_HOST = 'localhost' } = process.env;
 
 enum TIMEOUT {
   FIXTURE_LOAD = 2 * 1000
