@@ -6,7 +6,7 @@ services:
       file: ./docker-compose.base.yml
       service: playground
     environment:
-      - GUI_TESTS=true
+      - COVERAGE=1
 
   selenium:
     extends:
@@ -38,6 +38,7 @@ services:
     depends_on:
       - playground
 
+  # TODO: run these on the host, or run unit inside a container
   chrome_tests:
     extends:
       service: playground

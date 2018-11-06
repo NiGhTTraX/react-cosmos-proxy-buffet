@@ -4,5 +4,3 @@ services:
   playground:
     build: ./
     command: npm run playground
-    environment:
-      - NODE_ENV
