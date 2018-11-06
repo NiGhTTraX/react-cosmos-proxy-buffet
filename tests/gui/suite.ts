@@ -1,4 +1,4 @@
-import { remote } from 'webdriverio';
+import { remote, Client, RawResult } from 'webdriverio';
 // @ts-ignore
 import Mugshot from 'mugshot';
 // @ts-ignore
@@ -13,9 +13,6 @@ import {
   runnerIt,
   runnerDescribe
 } from '../mocha-runner';
-
-import Client = WebdriverIO.Client;
-import RawResult = WebdriverIO.RawResult;
 
 export type TestDefinition = (browser: Client<RawResult<null>>) => Promise<any> | void;
 
