@@ -65,7 +65,7 @@ export function it(name: string, definition: TestDefinition) {
   runnerIt(name, testName => {
     const promise = Promise.resolve(definition(rootSuiteBrowser));
 
-    if (process.env.NODE_ENV !== 'coverage') {
+    if (!process.env.COVERAGE) {
       return promise;
     }
 
@@ -92,7 +92,7 @@ export function vit(name: string, definition: TestDefinition, selector:string = 
       promise = promise.then(() => checkForVisualChanges(testName, selector));
     }
 
-    if (process.env.NODE_ENV === 'coverage') {
+    if (process.env.COVERAGE) {
       promise = promise.then(() => collectCoverage(testName));
     }
 

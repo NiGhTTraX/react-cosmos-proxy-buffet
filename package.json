@@ -25,7 +25,7 @@
     "prepublishOnly": "npm run build",
     "lint": "eslint --ext ts,tsx .",
     "test": "TS_NODE_CACHE=0 mocha --opts tests/unit/mocha.opts",
-    "test:coverage": "NODE_ENV=coverage nyc mocha --opts tests/unit/mocha.coverage.opts",
+    "test:coverage": "COVERAGE=1 nyc mocha --opts tests/unit/mocha.coverage.opts",
     "test:gui": "./tests/gui/run.sh",
     "test:gui:debug": "./tests/gui/debug.sh",
     "test:gui:selenium": "./tests/gui/debug-selenium.sh",
