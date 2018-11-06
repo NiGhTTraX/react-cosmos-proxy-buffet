@@ -35,9 +35,9 @@ RESULT=$(docker-compose ps -q \
   | xargs docker inspect -f '{{ .State.ExitCode }}' \
   | grep -v 0 | wc -l | tr -d ' ')
 
-if [ ${RESULT} != 0 ]; then
+if [[ ${RESULT} != 0 ]]; then
   echo Playground logs:
-  docker-compose logs app
+  docker-compose logs playground
 
   echo Selenium logs:
   docker-compose logs selenium
