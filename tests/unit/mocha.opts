@@ -1,4 +1,4 @@
 --require ts-node/register
 --require ignore-styles
 --file tests/unit/jsdom-setup.ts
-tests/**/*.spec.{ts,tsx}
+tests/unit/**/*.spec.{ts,tsx}
