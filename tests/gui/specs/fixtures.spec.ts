@@ -1,4 +1,5 @@
 // @ts-ignore because this is an artifact
+// eslint-disable-next-line import/no-unresolved
 import components from '../../../playground/fixtures.json';
 import { describe, loadFixture, vit } from '../suite';
 

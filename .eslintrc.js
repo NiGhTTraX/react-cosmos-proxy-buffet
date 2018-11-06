@@ -17,8 +17,7 @@ module.exports = {
         'extensions': [
           '.js', '.ts', '.tsx'
         ]
-      },
-      'babel-module': { }
+      }
     }
   },
 
@@ -27,6 +26,9 @@ module.exports = {
     'no-undef': 0,
 
     'typescript/no-unused-vars': 2,
+
+    'react/destructuring-assignment': 0,
+    'react/jsx-one-expression-per-line': 0,
 
     'react/sort-comp': [2, {
       order: [

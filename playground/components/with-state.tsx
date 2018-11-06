@@ -10,7 +10,7 @@ export default class WithState extends Component<{}, State> {
   };
 
   render() {
-    return <button onClick={this._onClick}>
+    return <button type="button" onClick={this._onClick}>
       Clicked {this.state.counter} times
     </button>;
   }

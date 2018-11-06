@@ -99,10 +99,10 @@ export function vit(name: string, definition: TestDefinition, selector:string = 
 
 export async function loadFixture(componentPath: string, fixturePath: string) {
   await rootSuiteBrowser.url(
-    `http://playground:8989/` +
-    `?component=${encodeURIComponent(componentPath)}` +
-    `&fixture=${encodeURIComponent(fixturePath)}` +
-    `&fullScreen=true`
+    'http://playground:8989/'
+    + `?component=${encodeURIComponent(componentPath)}`
+    + `&fixture=${encodeURIComponent(fixturePath)}`
+    + '&fullScreen=true'
   );
 
   await rootSuiteBrowser.waitForVisible('[class^=index__container]', TIMEOUT.FIXTURE_LOAD);
