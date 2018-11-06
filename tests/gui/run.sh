@@ -22,6 +22,8 @@ docker-compose up -d --force-recreate --remove-orphans selenium
 # TODO: firefox is disabled because it has problems with taking screenshots of #root
 ./wait-for-nodes.sh 1
 
+npm run _test:gui:fixtures
+
 set +e
 COVERAGE=1 BROWSER=chrome npm run _test:gui
 RESULT=$?
