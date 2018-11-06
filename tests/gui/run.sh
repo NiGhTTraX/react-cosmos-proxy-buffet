@@ -16,8 +16,6 @@ mkdir -p screenshots/chrome screenshots/firefox
 rm -rf ./results
 mkdir -p ./results/coverage
 
-export NODE_ENV=coverage
-
 docker-compose build
 
 # --force-recreate and --remove-orphans in case we've run a debug instance
