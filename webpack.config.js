@@ -35,7 +35,7 @@ module.exports = {
     new HotModuleReplacementPlugin(),
     new NoEmitOnErrorsPlugin(),
     new EnvironmentPlugin({
-      acceptance: false
+      ACCEPTANCE: false
     })
   ]
 };

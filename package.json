@@ -17,6 +17,7 @@
   "main": "dist/src/index",
   "types": "dist/src/index",
   "scripts": {
+    "start": "ACCEPTANCE=1 cosmos --config playground/cosmos.config.js",
     "playground": "cosmos --config playground/cosmos.config.js",
     "build": "npm run clean && npm run compile",
     "clean": "rm -rf ./dist",

@@ -1,7 +1,7 @@
 module.exports = {
   rootPath: '../',
 
-  ...(process.env.acceptance ? {
+  ...(process.env.ACCEPTANCE ? {
     fileMatch: ['**/fixtures/playground/**/*.{ts,tsx}']
   } : {
     fileMatch: ['**/fixtures/src/**/*.{ts,tsx}']
