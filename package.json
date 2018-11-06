@@ -95,6 +95,8 @@
     "nyc": "~13.0.1",
     "react": "~16.5.0",
     "react-cosmos": "~4.6.4",
+    "react-cosmos-shared": "latest",
+    "react-cosmos-voyager2": "latest",
     "react-dom": "~16.5.0",
     "react-mock-component": "~0.4.1",
     "sinon": "~6.2.0",
@@ -104,9 +106,7 @@
     "typescript": "~3.0.3",
     "typescript-eslint-parser": "~18.0.0",
     "webdriverio": "latest",
-    "webpack": "~4.17.2",
-    "react-cosmos-shared": "latest",
-    "react-cosmos-voyager2": "latest"
+    "webpack": "~4.17.2"
   },
   "files": [
     "dist/src/**/*"
